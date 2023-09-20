@@ -1,6 +1,5 @@
 from exceptions import CantGetCoordinates
 from dataclasses import dataclass
-import os
 
 from dotenv import load_dotenv
 import requests
@@ -25,11 +24,7 @@ def get_gps_coordinates() -> Coordinates:
 # TODO: kiss func and fix raise
 def _get_coordinates_from_ip() -> Coordinates:
     try:
-        response = requests.get('https://ipinfo.io')
-        data = response.json()
-        # Извлечение информации о местоположении
-        location: str = data.get('loc')
-        output: list[str] = location.split(",")
+        output = _get_location()
         return Coordinates(
             latitude=(_parse_float_coordinate(output[0])),
             longitude=(_parse_float_coordinate(output[1]))
@@ -37,6 +32,14 @@ def _get_coordinates_from_ip() -> Coordinates:
     except Exception as e:
         print(f"Произошла ошибка: {str(e)}")
         raise CantGetCoordinates
+
+
+def _get_location() -> list:
+    response = requests.get('https://ipinfo.io')
+    data = response.json()
+    location_coordinates: str = data.get('loc')
+    output: list[str] = location_coordinates.split(",")
+    return output
 
 
 def _parse_float_coordinate(value: str) -> float:
