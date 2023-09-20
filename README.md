@@ -1,5 +1,6 @@
-# weather-app
+# Weather-app
 ![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg)
+<a href="https://codeclimate.com/github/it-tr1p/weather-app/maintainability"><img src="https://api.codeclimate.com/v1/badges/3a8130499d32dc667cec/maintainability" /></a>
 
 ## About
 The "Weather-app" project is a console application developed for the purpose of practicing writing high-quality and efficient code. This application provides weather information using two external services: IPinfo for determining geographical coordinates and OpenWeather for retrieving current weather information.
