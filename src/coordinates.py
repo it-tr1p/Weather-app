@@ -1,10 +1,13 @@
-from dataclasses import dataclass
-from subprocess import Popen, PIPE
-from typing import Literal
-import config
 from exceptions import CantGetCoordinates
-from geopy.geocoders import Nominatim
+from dataclasses import dataclass
+import os
+
+from dotenv import load_dotenv
 import requests
+
+import config
+
+load_dotenv()
 
 
 @dataclass(slots=True, frozen=True)
@@ -44,7 +47,7 @@ def _parse_float_coordinate(value: str) -> float:
 
 
 def _round_coordinates(coordinates: Coordinates) -> Coordinates:
-    if not config.USE_ROUNDED_COORDS:
+    if not config.USE_ROUNDED_CORDS:
         return coordinates
     return Coordinates(*map(
         lambda c: round(c, 1),

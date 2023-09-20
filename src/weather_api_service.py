@@ -3,7 +3,6 @@ from dataclasses import dataclass
 from enum import Enum
 import json
 from json.decoder import JSONDecodeError
-import ssl
 from typing import Literal, TypeAlias
 import urllib.request
 from urllib.error import URLError
@@ -41,8 +40,8 @@ def get_weather(coordinates: Coordinates) -> Weather:
     return weather
 
 
+# TODO: Refactor to requests
 def _get_openweather_response(latitude: float, longitude: float) -> str:
-    ssl._create_default_https_context = ssl._create_unverified_context
     url = config.OPENWEATHER_URL.format(
         latitude=latitude, longitude=longitude)
     try:
