@@ -1,14 +1,15 @@
-from datetime import datetime
-from dataclasses import dataclass
-from enum import Enum
-import json
 from json.decoder import JSONDecodeError
-from typing import Literal, TypeAlias
-import urllib.request
-from urllib.error import URLError
-from coordinates import Coordinates
-import config
 from exceptions import ApiServiceError
+from typing import Literal, TypeAlias
+from coordinates import Coordinates
+from dataclasses import dataclass
+from datetime import datetime
+from enum import Enum
+import config
+import json
+
+from requests.exceptions import RequestException
+import requests
 
 Celsius: TypeAlias = int
 
@@ -40,14 +41,14 @@ def get_weather(coordinates: Coordinates) -> Weather:
     return weather
 
 
-# TODO: Refactor to requests
 def _get_openweather_response(latitude: float, longitude: float) -> str:
-    url = config.OPENWEATHER_URL.format(
-        latitude=latitude, longitude=longitude)
+    url = config.OPENWEATHER_URL.format(latitude=latitude, longitude=longitude)
     try:
-        return urllib.request.urlopen(url).read()
-    except URLError:
-        raise ApiServiceError
+        response = requests.get(url)
+        response.raise_for_status()
+        return response.text
+    except RequestException as e:
+        raise ApiServiceError(str(e))
 
 
 def _parse_openweather_response(openweather_response: str) -> Weather:
