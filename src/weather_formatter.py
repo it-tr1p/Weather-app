@@ -18,5 +18,5 @@ if __name__ == "__main__":
         weather_type=WeatherType.CLEAR,
         sunrise=datetime.fromisoformat("2022-05-03 04:00:00"),
         sunset=datetime.fromisoformat("2022-05-03 20:25:00"),
-        city="Moscow"
+        city="Some city"
     )))
