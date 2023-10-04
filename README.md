@@ -10,7 +10,7 @@ The "Weather-app" project is a console application developed for the purpose of 
 `git clone https://github.com/it-tr1p/weather-app.git`
 
 2. Create `venv & install` the dependencies:
-`poetry shell & poetry install`
+`poetry install & poetry shell`
 
 3. Change the name of `.env.template` to `.env` and get `open weather api key`
 
